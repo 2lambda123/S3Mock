@@ -25,7 +25,7 @@ import static com.adobe.testing.s3mock.util.AwsHttpParameters.LIST_TYPE_V2;
 import static com.adobe.testing.s3mock.util.AwsHttpParameters.LOCATION;
 import static com.adobe.testing.s3mock.util.AwsHttpParameters.MAX_KEYS;
 import static com.adobe.testing.s3mock.util.AwsHttpParameters.NOT_LIFECYCLE;
-import static com.adobe.testing.s3mock.util.AwsHttpParameters.NOT_LIST_TYPE;
+import static com.adobe.testing.s3mock.util.AwsHttpParameters.LOCATION;
 import static com.adobe.testing.s3mock.util.AwsHttpParameters.NOT_LOCATION;
 import static com.adobe.testing.s3mock.util.AwsHttpParameters.NOT_OBJECT_LOCK;
 import static com.adobe.testing.s3mock.util.AwsHttpParameters.NOT_UPLOADS;
@@ -34,7 +34,7 @@ import static com.adobe.testing.s3mock.util.AwsHttpParameters.OBJECT_LOCK;
 import static com.adobe.testing.s3mock.util.AwsHttpParameters.START_AFTER;
 import static com.adobe.testing.s3mock.util.AwsHttpParameters.VERSIONS;
 import static com.adobe.testing.s3mock.util.AwsHttpParameters.VERSION_ID_MARKER;
-import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
+import com.adobe.testing.s3mock.dto.BucketLifecycleConfiguration;
 
 import com.adobe.testing.s3mock.dto.BucketLifecycleConfiguration;
 import com.adobe.testing.s3mock.dto.ListAllMyBucketsResult;
@@ -51,16 +51,18 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import com.adobe.testing.s3mock.dto.BucketLifecycleConfiguration;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import software.amazon.awssdk.regions.Region;
+import com.adobe.testing.s3mock.dto.BucketLifecycleConfiguration;
 
-/**
- * Handles requests related to buckets.
- */
+import com.adobe.testing.s3mock.service.BucketService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMethod;
 @CrossOrigin(origins = "*", exposedHeaders = "*")
 @Controller
 @RequestMapping("${com.adobe.testing.s3mock.contextPath:}")
