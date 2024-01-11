@@ -34,3 +34,27 @@ class FaviconController {
     // Method is intentionally empty.
   }
 }
+@MockBean(classes = {KmsKeyStore.class,
+    ObjectController.class,
+    BucketController.class,
+    MultipartController.class
+})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class FaviconController {
+  @Autowired
+  private TestRestTemplate restTemplate;
+
+  @Test
+  void testFavicon() {
+    var headers = new HttpHeaders();
+    headers.setAccept(List.of(APPLICATION_JSON));
+    var response = restTemplate.exchange(
+        "/favicon.ico",
+        HttpMethod.GET,
+        new HttpEntity<>(headers),
+        String.class
+    );
+
+    assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+  }
+}
