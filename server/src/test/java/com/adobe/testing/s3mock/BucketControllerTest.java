@@ -44,6 +44,11 @@ import com.adobe.testing.s3mock.dto.LifecycleRule;
 import com.adobe.testing.s3mock.dto.LifecycleRuleFilter;
 import com.adobe.testing.s3mock.dto.ListAllMyBucketsResult;
 import com.adobe.testing.s3mock.dto.ListBucketResult;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import com.adobe.testing.s3mock.dto.ListBucketResultV2;
 import com.adobe.testing.s3mock.dto.Mode;
 import com.adobe.testing.s3mock.dto.ObjectLockConfiguration;
@@ -90,7 +95,11 @@ class BucketControllerTest {
   private BucketService bucketService;
 
   @Autowired
+  @Autowired
   private TestRestTemplate restTemplate;
+
+  @MockBean
+  private BucketService bucketService;
 
   @Test
   void testListBuckets_Ok() throws Exception {
@@ -107,8 +116,10 @@ class BucketControllerTest {
         "/",
         HttpMethod.GET,
         new HttpEntity<>(headers),
-        String.class
-    );
+        String.class);
+
+assertEquals(HttpStatus.OK, response.getStatusCode());
+assertEquals(MAPPER.writeValueAsString(expected), response.getBody());
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     assertThat(response.getBody()).isEqualTo(MAPPER.writeValueAsString(expected));
   }
@@ -125,8 +136,10 @@ class BucketControllerTest {
         "/",
         HttpMethod.GET,
         new HttpEntity<>(headers),
-        String.class
-    );
+        String.class);
+
+assertEquals(HttpStatus.OK, response.getStatusCode());
+assertEquals(MAPPER.writeValueAsString(expected), response.getBody());
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     assertThat(response.getBody()).isEqualTo(MAPPER.writeValueAsString(expected));
   }
@@ -156,10 +169,11 @@ class BucketControllerTest {
     headers.setContentType(APPLICATION_XML);
     var response = restTemplate.exchange(
         "/test-bucket",
-        HttpMethod.GET,
+        HttpMethod.HEAD,
         new HttpEntity<>(headers),
-        String.class
-    );
+        String.class);
+
+assertEquals(HttpStatus.OK, response.getStatusCode());
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
   }
 
@@ -179,6 +193,9 @@ class BucketControllerTest {
 
   @Test
   void testCreateBucket_InternalServerError() {
+    when(bucketService.createBucket(TEST_BUCKET_NAME, false))
+        .thenThrow(new IllegalStateException("THIS IS EXPECTED"));
+
     when(bucketService.createBucket(TEST_BUCKET_NAME, false))
         .thenThrow(new IllegalStateException("THIS IS EXPECTED"));
 
@@ -291,8 +308,14 @@ class BucketControllerTest {
         maxKeysUri,
         HttpMethod.GET,
         new HttpEntity<>(headers),
-        String.class
-    );
+        String.class);
+
+    assertEquals(HttpStatus.BAD_REQUEST, maxKeysResponse.getStatusCode());
+    assertEquals(from(INVALID_REQUEST_MAXKEYS), MAPPER.readValue(maxKeysResponse.getBody(), ErrorResponse.class));
+
+    var encodingTypeUri = UriComponentsBuilder.fromUriString("/test-bucket")
+        .queryParam(ENCODING_TYPE, encodingtype)
+        .build().toString();
     assertThat(maxKeysResponse.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     assertThat(maxKeysResponse.getBody())
         .isEqualTo(MAPPER.writeValueAsString(from(INVALID_REQUEST_MAXKEYS)));
@@ -384,8 +407,9 @@ class BucketControllerTest {
         uri,
         HttpMethod.GET,
         new HttpEntity<>(headers),
-        String.class
-    );
+        String.class);
+
+assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
@@ -458,8 +482,10 @@ class BucketControllerTest {
         uri,
         HttpMethod.PUT,
         new HttpEntity<>(MAPPER.writeValueAsString(expected), headers),
-        String.class
-    );
+        String.class);
+
+assertEquals(HttpStatus.OK, response.getStatusCode());
+verify(bucketService).setObjectLockConfiguration(TEST_BUCKET_NAME, expected);
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 
     verify(bucketService).setObjectLockConfiguration(TEST_BUCKET_NAME, expected);
@@ -524,6 +550,10 @@ class BucketControllerTest {
   void testGetBucketLifecycleConfiguration_Ok() throws Exception {
     givenBucket();
 
+    var filter1 = new LifecycleRuleFilter(null, null, "documents/", null, null);
+    var transition1 = new Transition(null, 30, GLACIER);
+    var rule1 = new LifecycleRule(null, null, filter1, "id1", null, null,
+        ENABLED, Collections.singletonList(transition1));
     var filter1 = new LifecycleRuleFilter(null, null, "documents/", null, null);
     var transition1 = new Transition(null, 30, GLACIER);
     var rule1 = new LifecycleRule(null, null, filter1, "id1", null, null,
