@@ -42,7 +42,8 @@ class FaviconControllerTest {
   private TestRestTemplate restTemplate;
 
   @Test
-  void testFavicon() {
+  @DisplayName("Test Favicon endpoint returns favicon")
+  void testFaviconAndOtherScenarios() {
     var headers = new HttpHeaders();
     headers.setAccept(List.of(APPLICATION_JSON));
     var response = restTemplate.exchange(
