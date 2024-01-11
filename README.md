@@ -14,7 +14,22 @@ Issue Description: The GitHub Actions run failed with the following error logs:
 ---
 ### Error Logs
 
-_Add your error logs here_
+_<details>
+  <summary><strong>Error Logs</strong></summary>
+
+  <!-- Add the error logs from the failed GitHub Actions run here -->
+
+</details>
+
+```markdown
+<!-- Troubleshooting and Debugging Common GitHub Actions Issues -->
+GitHub Actions workflows may encounter common issues that require troubleshooting and debugging to ensure successful execution. Follow these steps to debug and fix common problems:
+- Review the error logs from the failed GitHub Actions run to identify the issue.
+- Check for any warnings or failure messages that provide insight into the cause of the problem.
+- Verify the configuration and setup steps used in the workflow to ensure they are correct.
+- Use the error log information to pinpoint the root cause and take corrective actions.
+
+Effective troubleshooting and debugging are essential for resolving issues and ensuring the smooth execution of GitHub Actions workflows._
 
 ---The GitHub Actions run failed with the following error logs:
 
@@ -30,6 +45,7 @@ _Add your error logs here_
 ```\n
   * [S3Mock](#s3mock)
   * [Changelog](#changelog)
+  * [GitHub Actions Setup and Troubleshooting](#github-actions-setup-and-troubleshooting)
   * [Supported S3 operations](#supported-s3-operations)
   * [Usage](#usage)
     * [Usage of AWS S3 SDKs](#usage-of-aws-s3-sdks)
@@ -54,6 +70,7 @@ _Add your error logs here_
     * [Objects](#objects)
     * [Multipart Uploads](#multipart-uploads)
   * [Build & Run](#build--run)
+  * [Interpreting and Analyzing GitHub Actions Error Logs](#interpreting-and-analyzing-github-actions-error-logs)
     * [Java](#java)
     * [Kotlin](#kotlin)
   * [Contributing](#contributing)
@@ -86,7 +103,15 @@ Of these [operations of the Amazon S3 API](https://docs.aws.amazon.com/AmazonS3/
 
 | Operation                                                                                                                                           | Support            | Comment                   |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|---------------------------|
-| [AbortMultipartUpload](https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html)                                               | :white_check_mark: |                           |
+| [AbortMultipartUpload](https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html)
+
+### Interpreting and Analyzing Error Logs from GitHub Actions
+
+When a GitHub Actions run fails, it is essential to interpret and analyze the error logs to identify the root cause of the failure. Follow these steps to analyze the error logs:
+- Review the error messages and warnings in the logs to understand what caused the workflow to fail.
+- Look for specific error codes or messages that indicate the nature of the problem.
+- Pay attention to any stack traces or context-specific information that can help pinpoint the issue.
+- Use the error log information to guide the debugging and troubleshooting process.                                               | :white_check_mark: |                           |
 | [CompleteMultipartUpload](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CompleteMultipartUpload.html)                                         | :white_check_mark: |                           |
 | [CopyObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html)                                                                   | :white_check_mark: |                           |
 | [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)                                                               | :white_check_mark: |                           |
@@ -171,9 +196,10 @@ Of these [operations of the Amazon S3 API](https://docs.aws.amazon.com/AmazonS3/
 | [PutBucketTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketTagging.html)                                                       | :x:                |                           |
 | [PutBucketVersioning](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketVersioning.html)                                                 | :x:                |                           |
 | [PutBucketWebsite](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketWebsite.html)                                                       | :x:                |                           |
+| [RestoreObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_RestoreObject.html)                                                             | :x:                |                           |
 | [PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)                                                                     | :white_check_mark: |                           |
 | [PutObjectAcl](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectAcl.html)                                                               | :white_check_mark: |                           |
-| [PutObjectLegalHold](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectLegalHold.html)                                                   | :white_check_mark: |                           |
+| Put Object Legal Hold                                                   | :white_check_mark: |                           |
 | [PutObjectLockConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectLockConfiguration.html)                                   | :white_check_mark: |                           |
 | [PutObjectRetention](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectRetention.html)                                                   | :white_check_mark: |                           |
 | [PutObjectTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectTagging.html)                                                       | :white_check_mark: |                           |
@@ -257,7 +283,7 @@ Get object
 curl --request GET http://localhost:9090/my-test-bucket/my-file
 ```
 
-### S3Mock configuration options
+### Latest Information about S3Mock Project configuration options
 
 The mock can be configured with the following environment variables:
 
@@ -474,7 +500,24 @@ A folder is created that uses the Object's UUID assigned in the [BucketMetadata]
 ```
 /<root-folder>/<bucket-name>/<uuid>/
 ```
-Object data is stored below that UUID folder.
+```markdown
+<!-- Interpreting and Analyzing Error Logs from Failed GitHub Actions Runs -->
+
+When a GitHub Actions run fails, it's important to carefully interpret and analyze the error logs to identify the root cause and take corrective actions. Here are some steps to follow:
+- Review the error logs to understand which step or task failed.
+- Look for error messages, warnings, or exceptions that provide insight into the issue.
+- Identify any specific error codes or messages that indicate the nature of the failure.
+- Use the error log information to debug and troubleshoot the underlying problem.
+
+Analyzing error logs is crucial for diagnosing and resolving issues in GitHub Actions workflows.
+When reviewing error logs from failed GitHub Actions runs, consider the following key elements:
+- Look for error messages and stack traces to identify the specific task or step that failed.
+- Check the context and preceding steps to understand the sequence of events leading up to the failure.
+- Identify any custom scripts or commands that may have contributed to the issue.
+- Pay attention to environment setup and ensure that environment variables and dependencies are configured correctly.
+
+By understanding and interpreting the error logs, it becomes easier to identify the root cause and take the necessary debugging steps to address the issue.
+```
 
 Binary data is always stored in a file `binaryData`
 ```
