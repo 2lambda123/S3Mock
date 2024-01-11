@@ -9,7 +9,25 @@
 [![Project Map](https://sourcespy.com/shield.svg)](https://sourcespy.com/github/adobes3mock/)
 [![GitHub stars](https://img.shields.io/github/stars/adobe/S3Mock.svg?style=social&label=Star&maxAge=2592000)](https://github.com/adobe/S3Mock/stargazers/)
 
-<!-- TOC -->
+Issue Description: The GitHub Actions run failed with the following error logs:
+
+---
+### Error Logs
+
+_Add your error logs here_
+
+---The GitHub Actions run failed with the following error logs:
+
+<!-- Please include the error logs from the failed GitHub Actions run here -->
+
+<!-- Please include the error logs from the failed GitHub Actions run here -->
+
+```_text
+<!-- Add the error logs from the failed GitHub Actions run here -->
+```
+``` 
+ 
+```\n
   * [S3Mock](#s3mock)
   * [Changelog](#changelog)
   * [Supported S3 operations](#supported-s3-operations)
@@ -40,7 +58,16 @@
     * [Kotlin](#kotlin)
   * [Contributing](#contributing)
   * [Licensing](#licensing)
-<!-- TOC -->
+Issue Description: The GitHub Actions run failed with the following error logs:
+
+<!-- Please include the error logs from the failed GitHub Actions run here -->
+
+<!-- Please include the error logs from the failed GitHub Actions run here -->
+``` 
+ 
+```
+
+<!-- Instructions for the user to reproduce the issue: -->
 
 ## S3Mock
 `S3Mock` is a lightweight server that implements parts of the [Amazon S3 API](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html).  
@@ -280,7 +307,11 @@ The [`S3MockContainer`](testsupport/testcontainers/src/main/java/com/adobe/testi
 
 The example [`S3MockContainerJupiterTest`](testsupport/testcontainers/src/test/java/com/adobe/testing/s3mock/testcontainers/S3MockContainerJupiterTest.java) demonstrates the usage with JUnit 5.  The example [`S3MockContainerManualTest`](testsupport/testcontainers/src/test/java/com/adobe/testing/s3mock/testcontainers/S3MockContainerManualTest.java) demonstrates the usage with plain Java.
 
-Testcontainers provides integrations for JUnit 4, JUnit 5 and Spock.  
+Issue Reproduction: Steps to reproduce the issue:
+
+1. Add the file `docker-compose.yml` to the project.
+2. Start the S3Mock using the command `docker compose up -d`.
+3. Try running the GitHub Actions workflow to observe the failure.  
 For more information, visit the [Testcontainers](https://www.testcontainers.org/) website.
 
 To use the [`S3MockContainer`](testsupport/testcontainers/src/main/java/com/adobe/testing/s3mock/testcontainers/S3MockContainer.java), use the following Maven artifact in `test` scope:
@@ -304,11 +335,19 @@ services:
     image: adobe/s3mock:3.1.0
     environment:
       - initialBuckets=bucket1
+    ```yaml
+services:
+        s3mock:
+    image: adobe/s3mock:3.1.0
+    environment:
+      - initialBuckets=bucket1
     ports:
       - 9090:9090
 ```
+```
 
-Start with `docker compose up -d`
+Start using Docker compose
+Create a file `docker-compose.yml`
 
 Stop with `docker compose down`
 
