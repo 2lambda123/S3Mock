@@ -89,12 +89,12 @@
   </distributionManagement>
 
   <properties>
-    <aws-v2.version>2.21.14</aws-v2.version>
+    <aws-v2.version>2.21.44</aws-v2.version>
 
-    <aws.version>1.12.580</aws.version>
-    <checkstyle.version>10.12.5</checkstyle.version>
+    <aws.version>1.12.649</aws.version>
+    <checkstyle.version>10.13.0</checkstyle.version>
     <commons-codec.version>1.15</commons-codec.version>
-    <commons-io.version>2.15.0</commons-io.version>
+    <commons-io.version>2.15.1</commons-io.version>
     <docker-builder.image.name>s3mock-buildx</docker-builder.image.name>
     <docker-maven-plugin.version>0.43.4</docker-maven-plugin.version>
 
@@ -113,12 +113,12 @@
     <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
     <maven-install-plugin.version>3.1.1</maven-install-plugin.version>
     <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
-    <maven-javadoc-plugin.version>3.6.2</maven-javadoc-plugin.version>
+    <maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
     <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
     <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
     <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
     <maven-surefire-plugin.version>3.2.2</maven-surefire-plugin.version>
-    <mockito-kotlin.version>5.1.0</mockito-kotlin.version>
+    <mockito-kotlin.version>5.2.1</mockito-kotlin.version>
     <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- Run Docker build by default -->
@@ -198,7 +198,7 @@
       <dependency>
         <groupId>jakarta.servlet</groupId>
         <artifactId>jakarta.servlet-api</artifactId>
-        <version>5.0.0</version>
+        <version>6.0.0</version>
       </dependency>
       <dependency>
         <groupId>org.springframework.boot</groupId>
